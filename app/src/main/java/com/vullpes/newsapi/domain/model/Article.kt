@@ -1,11 +1,6 @@
-package com.vullpes.newsapi.data.local
+package com.vullpes.newsapi.domain.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity("news_db")
-data class ArticleDb(
-    @PrimaryKey(autoGenerate = true)
+data class Article(
     val articleId:Int = 0,
     val author: String,
     val content: String,
