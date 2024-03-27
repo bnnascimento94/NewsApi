@@ -6,6 +6,10 @@ import com.vullpes.newsapi.domain.model.Article
 
 
 fun ArticleDb.toArticle() = Article(
+    articleId, author?:"", content?:"", description?:"", publishedAt?:"", title?:"", url?:"", urlToImage?:""
+)
+
+fun Article.toArticleDb() = ArticleDb(
     articleId, author, content, description, publishedAt, title, url, urlToImage
 )
 
@@ -20,11 +24,11 @@ fun ArticleDto.toArticleDb() = ArticleDb(
 )
 
 fun ArticleDto.toArticle() = Article(
-    author = author,
-    content = content,
-    description = description,
-    publishedAt = publishedAt,
-    title = title,
-    url = url,
-    urlToImage = urlToImage
+    author = author?:"",
+    content = content?:"",
+    description = description?:"",
+    publishedAt = publishedAt?:"",
+    title = title?:"",
+    url = url?:"",
+    urlToImage = urlToImage?:""
 )

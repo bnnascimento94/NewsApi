@@ -7,7 +7,9 @@ import kotlinx.coroutines.flow.Flow
 interface NewsRepository {
 
     fun getLatestNews(): Flow<PagingData<Article>>
-    fun getSavedNewsUsecase(): Flow<List<Article>>
-    fun searchNewsUsecase(search:String):Flow<PagingData<Article>>
+    fun getSavedNews(): Flow<List<Article>>
+    fun searchNews(search:String):Flow<PagingData<Article>>
+    suspend fun insertArticle(article: Article)
+    suspend fun deleteArticle(article: Article)
 
 }

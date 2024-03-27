@@ -21,7 +21,7 @@ android {
         properties.load(project.rootProject.file("keys.properties").inputStream())
         buildConfigField("String", "API_KEY", properties.getProperty("API_KEY"))
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.vullpes.newsapi.HiltTestRunner"
     }
 
     buildFeatures{
@@ -59,8 +59,10 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
+    //paging
+    implementation("androidx.paging:paging-runtime:3.2.1")
+    testImplementation("androidx.paging:paging-common:3.2.1")
 
-    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
 
 
     // Architectural Components
@@ -74,6 +76,9 @@ dependencies {
     // Room
     implementation("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
+
+    //coil
+    implementation("io.coil-kt:coil:2.6.0")
 
     // Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.6.1")

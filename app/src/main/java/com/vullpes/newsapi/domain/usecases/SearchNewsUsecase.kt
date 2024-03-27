@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class SearchNewsUsecase @Inject constructor(private val newsRepository: NewsRepository) {
 
-    operator fun invoke(search: String) = newsRepository.searchNewsUsecase(search)
+    operator fun invoke(search: String) = newsRepository.searchNews(search)
 }
