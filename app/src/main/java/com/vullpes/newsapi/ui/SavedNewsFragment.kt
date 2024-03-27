@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.vullpes.newsapi.R
 import com.vullpes.newsapi.databinding.FragmentNewsBinding
+import com.vullpes.newsapi.databinding.FragmentSavedNewsBinding
 import com.vullpes.newsapi.ui.adapters.NoticiasSalvasAdapter
 import kotlinx.coroutines.launch
 
@@ -24,7 +25,7 @@ import kotlinx.coroutines.launch
 class SavedNewsFragment : Fragment() {
 
     private val viewModel: NewsViewModel by activityViewModels()
-    private lateinit var binding: FragmentNewsBinding
+    private lateinit var binding: FragmentSavedNewsBinding
 
     private val myAdapter : NoticiasSalvasAdapter by lazy{
         NoticiasSalvasAdapter{
@@ -37,11 +38,11 @@ class SavedNewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_news, container,false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_saved_news, container,false)
 
 
 
-        binding.newsApi.apply {
+        binding.rvSaved.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = myAdapter
             ItemTouchHelper(itemTouchCallback).attachToRecyclerView(this)

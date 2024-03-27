@@ -1,6 +1,5 @@
 package com.vullpes.newsapi.data.remote
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.vullpes.newsapi.data.remote.dto.ArticleDto
