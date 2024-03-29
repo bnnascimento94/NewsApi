@@ -28,6 +28,10 @@ jobs:
           fileDir: './'
           encodedString: ${{secrets.KEY_PROPERTIES}}
 
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}    
+
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
