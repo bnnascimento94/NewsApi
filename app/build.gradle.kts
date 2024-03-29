@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id ("org.jetbrains.kotlin.kapt")
     id ("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -80,6 +81,8 @@ dependencies {
     //coil
     implementation("io.coil-kt:coil:2.6.0")
 
+    implementation("com.squareup.picasso:picasso:2.8")
+
     // Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.6.1")
 
@@ -113,6 +116,9 @@ dependencies {
 
     // Timber
     implementation("com.jakewharton.timber:timber:4.7.1")
+
+    //firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
 
 
     // Local Unit Tests

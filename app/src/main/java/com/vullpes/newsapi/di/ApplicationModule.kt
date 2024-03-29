@@ -40,15 +40,6 @@ object ApplicationModule {
             .create(NewsAPI::class.java)
     }
 
-    @Singleton
-    @Provides
-    fun provideGlideInstance(
-        @ApplicationContext context: Context
-    ) = Glide.with(context).setDefaultRequestOptions(
-        RequestOptions()
-            .placeholder(R.drawable.ic_image)
-            .error(R.drawable.ic_image)
-    )
 
     @Provides
     @Singleton
