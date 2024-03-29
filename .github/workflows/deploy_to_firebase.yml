@@ -28,6 +28,14 @@ jobs:
           fileDir: './'
           encodedString: ${{secrets.KEY_PROPERTIES}}
 
+      - name: Google Services json
+        id: write_file_google
+        uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: 'google-services.json'
+          fileDir: './app/'
+          encodedString: ${{secrets.GOOGLE_SERVICES_KEY}}
+
       - name: List files in the repository
         run: |
           cat ./keys.properties    
