@@ -20,14 +20,13 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-
-      - name: Decode Keystore
-        id: decode_keystore
-        uses: timheuer/base64-to-file@v1
+      - name: Get API Key
+        id: write_file
+        uses: timheuer/base64-to-file@v1.2
         with:
-          fileName: './keys.properties'
-          encodedString: ${{ secrets.KEY_PROPERTIES }}
-
+          fileName: 'keys.properties'
+          fileDir: './'
+          encodedString: ${{secrets.KEY_PROPERTIES}}
 
       - name: List files in the repository
         run: |
