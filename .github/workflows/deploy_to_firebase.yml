@@ -20,6 +20,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Get API Key
+        id: write_file
+        uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: 'keys.properties'
+          fileDir: './'
+          encodedString: ${{secrets.KEY_PROPERTIES}}
+
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
