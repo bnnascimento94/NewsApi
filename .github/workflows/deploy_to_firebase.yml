@@ -21,8 +21,12 @@ jobs:
           java-version: '17'
 
 
-      - name: Write secret to file
-        run: ${{secrets.KEY_PROPERTIES}} | base64 -d > ./keys.properties
+      - name: Decode Keystore
+        id: decode_keystore
+        uses: timheuer/base64-to-file@v1
+        with:
+          fileName: './keys.properties'
+          encodedString: ${{ secrets.KEY_PROPERTIES }}
 
 
       - name: List files in the repository
