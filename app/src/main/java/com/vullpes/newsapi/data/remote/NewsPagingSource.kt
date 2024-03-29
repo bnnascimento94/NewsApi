@@ -1,5 +1,6 @@
 package com.vullpes.newsapi.data.remote
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.vullpes.newsapi.data.remote.dto.ArticleDto
@@ -17,8 +18,10 @@ class NewsPagingSource(
                 page = position,
                 pageSize = params.loadSize
             )
+            print("pagesize ${params.loadSize.toString()}")
 
-            if(response.isSuccessful && response.body() != null){
+
+            if(response.body() != null && response.isSuccessful){
                 val articles = response.body()?.articles ?: emptyList()
 
                 LoadResult.Page(
@@ -28,12 +31,11 @@ class NewsPagingSource(
                 )
 
             }else{
-                LoadResult.Error(throw Exception("No Response"))
+                LoadResult.Error(Exception("No Response"))
             }
 
         } catch (e: Exception) {
-
-            LoadResult.Error(e)
+            LoadResult.Error(Exception("No Response"))
         }
     }
 

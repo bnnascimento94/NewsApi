@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 
 class SavedNewsFragment : Fragment() {
 
-    private val viewModel: NewsViewModel by activityViewModels()
+    val viewModel: NewsViewModel by activityViewModels()
     private lateinit var binding: FragmentSavedNewsBinding
 
     private val myAdapter : NoticiasSalvasAdapter by lazy{
@@ -39,8 +39,6 @@ class SavedNewsFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_saved_news, container,false)
-
-
 
         binding.rvSaved.apply {
             layoutManager = LinearLayoutManager(requireContext())

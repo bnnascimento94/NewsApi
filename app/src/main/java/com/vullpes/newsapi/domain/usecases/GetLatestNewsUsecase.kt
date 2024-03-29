@@ -7,7 +7,9 @@ import javax.inject.Inject
 
 class GetLatestNewsUsecase @Inject constructor(private var newsRepository: NewsRepository) {
 
-    operator fun invoke() = newsRepository.getLatestNews().map {
-        it.filter { article -> article.title != "[Removed]" || article.content != "[Removed]"}
+    fun execute() = newsRepository.getLatestNews().map {
+        it.filter { article -> !article.title.contentEquals("[Removed]") &&
+                    !article.content.contentEquals("[Removed]")
+        }
     }
 }

@@ -25,7 +25,7 @@ import kotlinx.coroutines.withContext
 
 class SearchNewsFragment : Fragment() {
 
-    private val viewModel: NewsViewModel by activityViewModels()
+    val viewModel: NewsViewModel by activityViewModels()
     private lateinit var binding: FragmentSearchNewsBinding
     private val myAdapter : NoticiasBuscadasAdapter by lazy{
         NoticiasBuscadasAdapter(

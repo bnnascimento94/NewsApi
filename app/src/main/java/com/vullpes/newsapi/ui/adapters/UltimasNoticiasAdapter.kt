@@ -17,7 +17,7 @@ class UltimasNoticiasAdapter(
 ): PagingDataAdapter<Article, UltimasNoticiasAdapter.UltimasNoticiasViewHolder>(REPO_COMPARATOR) {
 
     companion object{
-        private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<Article>(){
+        val REPO_COMPARATOR = object : DiffUtil.ItemCallback<Article>(){
             override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
                 return oldItem.url == newItem.url
             }

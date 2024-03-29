@@ -25,7 +25,7 @@ import kotlinx.coroutines.withContext
 
 class NewsFragment : Fragment() {
 
-    private val viewModel: NewsViewModel by activityViewModels()
+    val viewModel: NewsViewModel by activityViewModels()
 
     private val myAdapter : UltimasNoticiasAdapter by lazy{
         UltimasNoticiasAdapter(

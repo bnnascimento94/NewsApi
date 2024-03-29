@@ -27,7 +27,7 @@ class NewsViewModel @Inject constructor(
 
     private var subject:String = ""
 
-    fun buscarUltimasNoticias() = getLatestNewsUsecase.invoke().cachedIn(viewModelScope)
+    fun buscarUltimasNoticias() = getLatestNewsUsecase.execute().cachedIn(viewModelScope)
 
 
     fun salvarNoticias(article: Article) = viewModelScope.launch(Dispatchers.IO) {

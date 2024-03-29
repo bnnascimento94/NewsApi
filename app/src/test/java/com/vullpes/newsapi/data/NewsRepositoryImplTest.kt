@@ -7,12 +7,15 @@ import com.vullpes.newsapi.data.local.ArticleDb
 import com.vullpes.newsapi.data.local.NewsDatabase
 import com.vullpes.newsapi.data.remote.NewsAPI
 import com.vullpes.newsapi.data.remote.NewsPagingSource
+import com.vullpes.newsapi.data.remote.SearchedNewsPagingSource
 import com.vullpes.newsapi.data.remote.dto.ArticleDto
 import com.vullpes.newsapi.data.remote.dto.NewsDto
 import com.vullpes.newsapi.domain.model.Article
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
+import okhttp3.ResponseBody
+import okio.ByteString
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -258,7 +261,7 @@ class NewsRepositoryImplTest{
     @Test
     fun `testarNewsPegingSource`() = runTest {
 
-        `when`(newsAPI.getNews(country = "br", page = 1)).thenReturn(
+        `when`(newsAPI.getNews(country = "br", page = 1, pageSize = 2)).thenReturn(
             Response.success(NewsDto(articles = news, status = "", totalResults = 465212))
         )
         val result = NewsPagingSource(newsAPI)
@@ -281,18 +284,51 @@ class NewsRepositoryImplTest{
 
     }
 
-
     @Test
-    fun `reviews paging source load - failure - http error`() = runTest {
-        val error = RuntimeException("No Response", Throwable())
-        `when`(newsAPI.getNews(country = "br", page = 1)).thenThrow(error)
-        val expectedResult = PagingSource.LoadResult.Error<Int, ArticleDto>(error)
+    fun `testarNewsPegingSource_error`() = runTest {
 
+        val exception = Exception("No Response", Throwable())
 
+        `when`(newsAPI.getNews(country = "br", page = 1, pageSize = 2)).thenReturn(
+            Response.error(500,ResponseBody.create(null, ByteString.EMPTY))
+        )
         val result = NewsPagingSource(newsAPI)
 
         Truth.assertThat(
-            expectedResult
+            PagingSource.LoadResult.Error<Int, ArticleDto>(exception).toString()
+        ).isEqualTo(
+            result.load(
+                PagingSource.LoadParams.Refresh(
+                    key = null,
+                    loadSize = 2,
+                    placeholdersEnabled = false
+                )
+            ).toString()
+        )
+
+
+
+    }
+
+
+    @Test
+    fun `testar search items paging source`() = runTest {
+
+        `when`(newsAPI.getAllNewsAboutTopic(
+            page = 1,
+            pageSize = 2,
+            q = "test"
+        )).thenReturn(
+            Response.success(NewsDto(articles = news, status = "", totalResults = 465212))
+        )
+        val result = SearchedNewsPagingSource(newsAPI, query= "test")
+
+        Truth.assertThat(
+            PagingSource.LoadResult.Page(
+                data = news,
+                prevKey = null,
+                nextKey = 2
+            )
         ).isEqualTo(
             result.load(
                 PagingSource.LoadParams.Refresh(
@@ -303,19 +339,38 @@ class NewsRepositoryImplTest{
             )
         )
 
-
     }
 
 
     @Test
-    fun `testarPagingData`() = runTest {
+    fun `testar search items paging source _error`() = runTest {
 
-        `when`(newsAPI.getNews(country = "br", page = 1)).thenReturn(
-            Response.success(NewsDto(articles = news, status = "", totalResults = 465212))
+        val exception = Exception("No Response", Throwable())
+
+        `when`(newsAPI.getAllNewsAboutTopic(
+            page = 1,
+            pageSize = 2,
+            q = "test"
+        )).thenReturn(
+            Response.error(500,ResponseBody.create(null, ByteString.EMPTY))
         )
-        val result = newsRepositoryImpl.getLatestNews()
+
+        val result = SearchedNewsPagingSource(newsAPI, query= "test")
+
+        Truth.assertThat(
+            PagingSource.LoadResult.Error<Int, ArticleDto>(exception).toString()
+        ).isEqualTo(
+            result.load(
+                PagingSource.LoadParams.Refresh(
+                    key = null,
+                    loadSize = 2,
+                    placeholdersEnabled = false
+                )
+            ).toString()
+        )
 
     }
+
 
 
     @Test
