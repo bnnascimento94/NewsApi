@@ -74,7 +74,13 @@ class SavedNewsFragment : Fragment() {
     private fun subscribeObservers(){
         lifecycleScope.launch {
             viewModel.buscarNoticiasSalvas().observe(viewLifecycleOwner){
-                myAdapter.submitData(it)
+                if(it.isEmpty()){
+                    binding.noContent.visibility = View.VISIBLE
+                }else{
+                    binding.noContent.visibility = View.GONE
+                    myAdapter.submitData(it)
+                }
+
             }
         }
     }

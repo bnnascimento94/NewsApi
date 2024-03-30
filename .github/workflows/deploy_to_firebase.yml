@@ -20,6 +20,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      #salve o arquivo em bsae-64 e insira-o na secrets depois use esse procedimento para pegar novamente o file e inserir no devido caminho
       - name: Get API Key
         id: write_file
         uses: timheuer/base64-to-file@v1.2
@@ -28,6 +29,7 @@ jobs:
           fileDir: './'
           encodedString: ${{secrets.KEY_PROPERTIES}}
 
+      #salve o arquivo em bsae-64 e insira-o na secrets depois use esse procedimento para pegar novamente o file e inserir no devido caminho
       - name: Google Services json
         id: write_file_google
         uses: timheuer/base64-to-file@v1.2
